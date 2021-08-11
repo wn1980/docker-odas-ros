@@ -37,6 +37,7 @@ RUN apt-get install -y \
     #ros-${ROS_DISTRO}-hector-slam \
     #ros-${ROS_DISTRO}-octomap-server \
     #ros-${ROS_DISTRO}-octomap-rviz-plugins \
+    ros-${ROS_DISTRO}-tf-conversions \
     python3-rosdep && \
     apt-get autoremove -y && \
     apt-get clean && \
@@ -77,17 +78,15 @@ RUN rosdep init
 # init rosdep
 RUN rosdep fix-permissions && rosdep update
 
-RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
+RUN mkdir -p /catkin_ws/src 
 
-RUN mkdir -p /catkin_ws/src
-
-WORKDIR /catkin_ws/src
-
-RUN git clone https://github.com/introlab/audio_utils.git && \
+RUN cd /catkin_ws/src && \
+    git clone https://github.com/introlab/audio_utils.git && \
     cd audio_utils && \
     git submodule update --init --recursive
 
-RUN git clone https://github.com/introlab/odas_ros.git && \
+RUN cd /catkin_ws/src && \
+    git clone https://github.com/introlab/odas_ros.git && \
     cd odas_ros && \
     git submodule update --init --recursive
 
@@ -102,6 +101,8 @@ RUN source /opt/ros/$ROS_DISTRO/setup.bash && \
 
 COPY ./odas.cfg /
 #EXPOSE 11311 8558 9901
+
+WORKDIR /
 
 #CMD ["sudo", "-E", "/usr/local/bin/supervisord", "-c", "/app/supervisord.conf"]
 CMD source /catkin_ws/devel/setup.bash && roslaunch odas_ros odas.launch configuration_path:=/odas.cfg
