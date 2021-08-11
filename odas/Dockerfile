@@ -79,7 +79,7 @@ RUN rosdep fix-permissions && rosdep update
 
 RUN wget https://raw.githubusercontent.com/respeaker/usb_4_mic_array/master/odas.cfg
 
-COPY ./catkin_ws /catkin_ws
+RUN mkdir -p /catkin_ws/src
 
 WORKDIR /catkin_ws/src
 
