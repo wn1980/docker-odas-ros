@@ -13,7 +13,7 @@ services:
   odas:
     build: ./odas
     image: wn1980/odas-ros${TAG}
-    container_name: ros_odas_ros
+    container_name: ros_odas_server
     init: true
     restart: unless-stopped
     privileged: true
