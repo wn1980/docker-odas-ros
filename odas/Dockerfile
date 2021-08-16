@@ -68,7 +68,7 @@ RUN apt-get install -y \
     #pip install --upgrade pip \
     #pip install --upgrade setuptools \
     #pip install -U --no-cache-dir supervisor supervisor_twiddler && \
-    pip install libconf numpy scipy \
+    pip install libconf numpy scipy && \
     apt-get autoremove -y && \
     apt-get clean && \
     rm -rf /var/lib/apt/lists/*

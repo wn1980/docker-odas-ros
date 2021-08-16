@@ -6,7 +6,7 @@ volumes:
 networks:
   default:
     external:
-      name: robot-ops_default
+      name: ros-network
 
 services:
 
